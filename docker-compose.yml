@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: mahar
+      MYSQL_DATABASE: fabrotech-app
+    ports:
+      - '3306:3306'
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      - TYPEORM_HOST=db
+      - TYPEORM_PORT=3306
+      - TYPEORM_USERNAME=root
+      - TYPEORM_PASSWORD=mahar
+      - TYPEORM_DATABASE=fabrotech-app
